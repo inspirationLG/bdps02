@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+// Doc: https://developers.google.com/protocol-buffers/docs/proto3
+
+package com.bdps.special_service;
+
+option java_package = "com.bdps.special_service";
+option java_outer_classname = "SpecialServiceProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+//option objc_class_prefix = "SAMPLE";
+
+message SpecialService {
+    int32 specialServiceId = 1;
+    int32 organizationId = 2;
+    int32 name = 3;
+    string time = 4;
+    string specialServiceCreator = 5;
+    float coverageRate = 6;
+    string remainTime = 7;
+    string state = 8;
+    string address = 9;
+}
+
+message SpecialServices {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated SpecialService nodes = 4;
+}
+
+message AddSpecialServiceRequest {
+    int32 organizationId = 2;
+    int32 name = 3;
+    string time = 4;
+    string specialserviceCreator = 5;
+    float coverageRate = 6;
+    string remainTime = 7;
+    string state = 8;
+    string address = 9;
+}
+
+message ListSpecialServiceRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+message GetSpecialServiceRequest {
+    int32 specialServiceId = 1;
+}
+
+message UpdateSpecialServiceRequest {
+    int32 specialServiceId = 1;
+    int32 organizationId = 2;
+    int32 name = 3;
+    string time = 4;
+    string specialServiceCreator = 5;
+    float coverageRate = 6;
+    string remainTime = 7;
+    string state = 8;
+    string address = 9;
+}
+
+message DeleteSpecialServiceRequest {
+    int32 specialServiceId = 1;
+}
+
+service SpecialServiceService {
+    rpc AddSpecialService (AddSpecialServiceRequest) returns (SpecialService) {
+    }
+    rpc ListSpecialService (ListSpecialServiceRequest) returns (SpecialServices) {
+    }
+    rpc GetSpecialService (GetSpecialServiceRequest) returns (SpecialService) {
+    }
+    rpc UpdateSpecialService (UpdateSpecialServiceRequest) returns (SpecialService) {
+    }
+    rpc DeleteSpecialService (DeleteSpecialServiceRequest) returns (SpecialService) {
+
+    }
+}

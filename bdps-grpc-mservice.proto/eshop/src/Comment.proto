@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package com.bdps.comment;
+
+option java_package = "com.bdps.comment";
+option java_outer_classname = "CommentProto";
+import "google/protobuf/timestamp.proto";
+
+message Comment {
+    int32 commentId = 1;
+    int32 orderDetailId = 2;
+    int32  star = 3;
+    google.protobuf.Timestamp createdAt = 4;
+    string content = 5;
+
+}
+
+message Comments {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated Comment nodes = 4;
+}
+
+message AddCommentRequest {
+    int32 orderDetailId = 2;
+    int32  star = 3;
+    google.protobuf.Timestamp createdAt = 4;
+    string content = 5;
+}
+
+message UpdateCommentRequest{
+    int32 commentId = 1;
+    int32 orderDetailId = 2;
+    int32  star = 3;
+    google.protobuf.Timestamp createdAt = 4;
+    string content = 5;
+}
+
+message GetCommentRequest{
+    int32 commentId = 1;
+}
+
+message ListCommentRequest{
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+message DeleteCommentRequest{
+    int32 commentId = 1;
+}
+
+
+service CommentService {
+    rpc AddComment (AddCommentRequest) returns (Comment) {}
+    rpc GetComment  (GetCommentRequest ) returns (Comment){}
+    rpc ListComment (ListCommentRequest) returns (Comments){}
+    rpc UpdateComment (UpdateCommentRequest) returns (Comment){}
+    rpc DeleteComment(DeleteCommentRequest) returns (Comment){}
+}

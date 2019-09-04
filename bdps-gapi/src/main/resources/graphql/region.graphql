@@ -1,0 +1,75 @@
+#区域
+type Region{
+    #id
+    regionId: ID!
+    #名称
+    name: String
+    #简称
+    shortName: String
+    #地区代码
+    code: String
+    #上级区域ID
+    parentRegion: Region
+    #层级
+    level: Int
+}
+
+type Regions{
+    count:Int
+    page:Int
+    limit:Int
+    nodes:[Region]
+}
+
+#添加区域时，输入的参数
+input AddRegionRequest{
+    #名称
+    name: String
+    #简称
+    shortName: String
+    #地区代码
+    code: String
+    #上级区域ID
+    parentRegionId: Int!
+    #层级
+    level: Int
+}
+#更新区域
+input UpdateRegionRequest{
+    #id
+    regionId: ID!
+    #名称
+    name: String
+    #简称
+    shortName: String
+    #地区代码
+    code: String
+    #上级区域ID
+    parentRegionId: Int
+    #层级
+    level: Int
+}
+input ListRegionRequest{
+    page: Int!
+    limit: Int!
+}
+input GetRegionRequest{
+    id: ID!
+}
+input DeleteRegionRequest{
+    regionId: ID!
+}
+extend type Mutation{
+    #新增区域
+    addRegion(request: AddRegionRequest!): Region
+    # 更新区域
+    updateRegion(request: UpdateRegionRequest!): Region
+    # 删除区域
+    deleteRegion(request: DeleteRegionRequest!): Region
+}
+
+
+extend  type Query{
+    listRegion(request: ListRegionRequest!):Regions
+    getRegion(request: GetRegionRequest!):Region
+}

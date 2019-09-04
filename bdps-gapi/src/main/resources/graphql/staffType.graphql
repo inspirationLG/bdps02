@@ -1,0 +1,51 @@
+#人员类型
+type StaffType{
+    staffTypeId : ID!
+    type : Int
+    name : String
+}
+
+# 更新人员类型参参数
+input UpdateStaffTypeRequest{
+    staffTypeId : ID!
+    type : Int
+    name : String
+}
+# 获取人员类型参数
+input GetStaffTypeRequest{
+    staffTypeId: ID!
+}
+
+input AddStaffTypeRequest{
+    name : String!
+    type : Int
+}
+
+input ListStaffTypeRequest{
+    page : Int
+    limit : Int
+}
+
+type StaffTypes{
+    # 总数
+    count: Int
+    # 当前页
+    page: Int
+    # 条数
+    limit: Int
+    # 结点
+    nodes: [StaffType]
+}
+
+extend type Mutation {
+    #增加人员类型
+    addStaffType(request: AddStaffTypeRequest!): StaffType!
+    # 更新人员类型
+    updateStaffType(request: UpdateStaffTypeRequest): StaffType!
+}
+
+extend type Query {
+    #获取人员类型
+    getStaffType(request: GetStaffTypeRequest): StaffType
+    listStaffType(request: ListStaffTypeRequest) :StaffTypes
+}

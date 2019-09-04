@@ -1,0 +1,27 @@
+server:
+  port: 8888
+graphql:
+  servlet:
+    tracing-enabled: true
+    async-mode-enabled: true
+  tools:
+    schema-location-pattern: '**/*.graphql'
+  playground:
+    settings:
+      editor.theme: light
+      tracing.hideTracingResponse: false
+grpc:
+  client:
+    eshop-grpc-server:
+      address: 'static://127.0.0.1:8081'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
+    user-org-info-grpc-server:
+      address: 'static://127.0.0.1:8080'
+      negotiationType: plaintext
+    GLOBAL:
+      keep-alive-timeout: 2S
+spring:
+  application:
+    name: graphql-gateway

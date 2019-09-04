@@ -1,0 +1,51 @@
+#服务类型
+type ServiceType {
+    serviceTypeId: ID
+    type: Int
+    name: String
+}
+
+type ServiceTypes {
+    count: Int
+    page: Int
+    limit: Int
+    nodes: [ServiceType]
+}
+
+input AddServiceTypeRequest{
+    type: Int
+    name: String
+}
+
+input ListServiceTypeRequest {
+    page: Int
+    limit: Int
+}
+
+input DeleteServiceTypeRequest {
+    serviceTypeId: ID
+}
+
+input UpdateServiceTypeRequest {
+    serviceTypeId: ID!
+    type: Int
+    name: String
+}
+
+input GetServiceTypeRequest {
+    serviceTypeId: ID!
+}
+
+extend type Query {
+    getServiceType(request : GetServiceTypeRequest) : ServiceType
+    listServiceType(request: ListServiceTypeRequest!) : ServiceTypes
+}
+
+extend type Mutation {
+    addServiceType(request: AddServiceTypeRequest): ServiceType
+    updateServiceType(request: UpdateServiceTypeRequest): ServiceType
+    deleteServiceType(request: DeleteServiceTypeRequest): ServiceType
+}
+
+
+

@@ -1,0 +1,62 @@
+#服务
+type Service {
+    serviceId : ID!
+    name : String
+    serviceType : ServiceType
+    type: Int
+    content : String
+    unit : String
+    unitPrice : Float
+}
+type Services {
+    count: Int
+    page: Int
+    limit: Int
+    nodes: [Service]
+}
+
+input AddServiceRequest{
+    name : String
+    serviceType : Int
+    type: Int
+    content : String
+    unit : String
+    unitPrice : Float
+}
+
+input DeleteServiceRequest {
+    serviceId: ID!
+}
+
+input UpdateServiceRequest {
+    serviceId: ID!
+    name : String
+    serviceType : Int
+    type: Int
+    content : String
+    unit : String
+    unitPrice : Float
+}
+
+input ListServiceRequest {
+    page: Int!
+    limit: Int!
+}
+
+input GetServiceRequest {
+    serviceId: ID!
+}
+
+extend type Query {
+    getService(request: GetServiceRequest): Service
+    listService(request: ListServiceRequest!): Services
+}
+
+extend type Mutation {
+    addService(request: AddServiceRequest): Service
+    updateService(request: UpdateServiceRequest): Service
+    deleteService(request: DeleteServiceRequest): Service
+}
+
+
+

@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+// Doc: https://developers.google.com/protocol-buffers/docs/proto3
+
+package com.bdps.order;
+
+option java_package = "com.bdps.order_detail";
+option java_outer_classname = "OrderDetailProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+import "google/protobuf/empty.proto";
+
+message OrderDetail {
+    int32 orderDetailId = 1;
+    int32 orderId = 2;
+    int32 amount = 3;
+}
+
+message OrderDetails {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated OrderDetail nodes = 4;
+}
+
+message AddOrderDetailRequest {
+    int32 orderId = 2;
+    int32 amount = 3;
+}
+
+message UpdateOrderDetailRequest {
+    int32 orderDetailId = 1;
+    int32 orderId = 2;
+    int32 amount = 3;
+}
+
+message DeleteOrderDetailRequest {
+    int32 orderDetailId = 1;
+}
+
+message GetOrderDetailRequest {
+    int32 orderDetailId = 1;
+}
+
+message ListOrderDetailRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+service OrderDetailService {
+    rpc AddOrderDetail (AddOrderDetailRequest) returns (OrderDetail) {}
+    rpc UpdateOrderDetail (UpdateOrderDetailRequest) returns (OrderDetail) {}
+    rpc DeleteOrderDetail (DeleteOrderDetailRequest ) returns (OrderDetail) {}
+    rpc GetOrderDetail (GetOrderDetailRequest ) returns (OrderDetail){}
+    rpc ListOrderDetail (ListOrderDetailRequest) returns (OrderDetails) {}
+}

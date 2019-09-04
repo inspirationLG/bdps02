@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+// Doc: https://developers.google.com/protocol-buffers/docs/proto3
+
+package com.bdps.region;
+
+option java_package = "com.bdps.region";
+option java_outer_classname = "RegionProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+//option objc_class_prefix = "SAMPLE";
+
+message Region {
+    int32 regionId = 1;
+    string name = 2;
+    string shortName = 3;
+    string code = 4;
+    int32 parentRegionId = 5;
+    int32 level = 6;
+}
+
+
+message Regions {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated Region nodes = 4;
+}
+
+
+message AddRegionRequest {
+    string name = 2;
+    string shortName = 3;
+    string code = 4;
+    int32 parentRegionId = 5;
+    int32 level = 6;
+}
+
+
+message ListRegionRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+message GetRegionRequest {
+    int32 id = 1;
+}
+
+message UpdateRegionRequest {
+    int32 regionId = 1;
+    string name = 2;
+    string shortName = 3;
+    string code = 4;
+    int32 parentRegionId = 5;
+    int32 level = 6;
+}
+
+message DeleteRegionRequest {
+    int32 regionId = 1;
+}
+service RegionService {
+    rpc AddRegion (AddRegionRequest) returns (Region) {
+    }
+    rpc ListRegion (ListRegionRequest) returns (Regions) {
+    }
+    rpc GetRegion (GetRegionRequest) returns (Region) {
+    }
+    rpc UpdateRegion (UpdateRegionRequest) returns (Region) {
+    }
+    rpc DeleteRegion (DeleteRegionRequest) returns (Region) {
+
+    }
+}

@@ -1,0 +1,51 @@
+#人员类型
+type OrderDetail{
+    orderDetailId : ID
+    orderId : Int
+    amount : Int
+}
+
+# 更新人员类型参参数
+input UpdateOrderDetailRequest{
+    orderDetailId : ID
+    orderId : Int
+    amount : Int
+}
+# 获取人员类型参数
+input GetOrderDetailRequest{
+    orderDetailId : ID
+}
+
+input AddOrderDetailRequest{
+    orderDetailId : ID
+    orderId : Int
+    amount : Int
+}
+
+input ListOrderDetailRequest{
+    page : Int
+    limit : Int
+}
+
+type OrderDetails{
+    # 总数
+    count: Int
+    # 当前页
+    page: Int
+    # 条数
+    limit: Int
+    # 结点
+    nodes: [OrderDetail]
+}
+
+extend type Mutation {
+
+    addOrderDetail(request: AddOrderDetailRequest!): OrderDetail!
+
+    updateOrderDetail(request: UpdateOrderDetailRequest): OrderDetail!
+}
+
+extend type Query {
+    getOrderDetail(request: GetOrderDetailRequest): OrderDetail
+    listOrderDetail(request: ListOrderDetailRequest) :OrderDetails
+}

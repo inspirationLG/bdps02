@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+// Doc: https://developers.google.com/protocol-buffers/docs/proto3
+
+package com.bdps.staff;
+
+option java_package = "com.bdps.staff";
+option java_outer_classname = "StaffProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+
+message Staff{
+    int32 staff_id = 1;
+    string license_id = 2;
+    string parent_staff_id = 3;
+    string name = 4;
+    string role = 5;
+    int32 organization_id = 6;
+}
+message AddStaffRequest{
+    int32 staff_id = 1;
+    string license_id = 2;
+    string parent_staff_id = 3;
+    string name = 4;
+    int32 age = 5;
+    string role = 6;
+    int32 organization_id = 7;
+}
+
+message GetStaffRequest{
+    int32 staff_id = 1;
+}
+
+service StaffService{
+    rpc AddStaff(AddStaffRequest) returns(Staff);
+    rpc GetStaff(GetStaffRequest) returns(Staff);
+}

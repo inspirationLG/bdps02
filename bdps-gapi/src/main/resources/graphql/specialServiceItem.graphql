@@ -1,0 +1,79 @@
+#专项项目补助
+type SpecialServiceItem{
+    #专项项目补助ID
+    specialServiceItemId: ID!
+    #人员
+    staff: Staff
+    #服务状态
+    status: String
+    #单位
+    unit: String
+    #金额or次数
+    amountOrTimes: String
+    #已用金额or次数
+    usedAmountOrTimes: String
+}
+
+type SpecialServiceItems{
+    count:Int
+    page:Int
+    limit:Int
+    nodes:[SpecialServiceItem]
+}
+
+#添加专项项目补助
+input AddSpecialServiceItemRequest{
+    #人员
+    staffId: Int!
+    #服务状态
+    status: String
+    #单位
+    unit: String
+    #金额or次数
+    amountOrTimes: String
+    #已用金额or次数
+    usedAmountOrTimes: String
+}
+#更新专项项目补助
+input UpdateSpecialServiceItemRequest{
+    #专项项目补助ID
+    specialServiceItemId: ID!
+    #人员
+    staffId: Int
+    #服务状态
+    status: String
+    #单位
+    unit: String
+    #金额or次数
+    amountOrTimes: String
+    #已用金额or次数
+    usedAmountOrTimes: String
+}
+#分页查询专项项目补助参数
+input ListSpecialServiceItemRequest{
+    page: Int!
+    limit: Int!
+}
+#查询专项项目补助参数
+input GetSpecialServiceItemRequest{
+    specialServiceItemId: ID!
+}
+input DeleteSpecialServiceItemRequest{
+    specialServiceItemId: ID!
+}
+extend type Mutation{
+    #新增专项项目补助
+    addSpecialServiceItem(request: AddSpecialServiceItemRequest!): SpecialServiceItem
+    # 更新专项项目补助
+    updateSpecialServiceItem(request: UpdateSpecialServiceItemRequest!): SpecialServiceItem
+    # 删除专项项目补助
+    deleteSpecialServiceItem(request: DeleteSpecialServiceItemRequest!): SpecialServiceItem
+}
+
+
+extend  type Query{
+    ##分页查询专项项目补助
+    listSpecialServiceItem(request: ListSpecialServiceItemRequest!):SpecialServiceItems
+    #查询专项项目补助
+    getSpecialServiceItem(request: GetSpecialServiceItemRequest!):SpecialServiceItem
+}

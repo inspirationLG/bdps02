@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+// Doc: https://developers.google.com/protocol-buffers/docs/proto3
+
+package com.bdps.coverage_crowd;
+
+option java_package = "com.bdps.coverage_crowd";
+option java_outer_classname = "CoverageCrowdProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+//option objc_class_prefix = "SAMPLE";
+
+message CoverageCrowd {
+    int32 coverageCrowdId = 1;
+    int32 specialServiceId = 2;
+    int32 totalNumber = 3;
+    string beneficiaryType = 4;
+    int32 beneficiaryAge = 5;
+}
+
+
+message CoverageCrowds {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated CoverageCrowd nodes = 4;
+}
+
+
+message AddCoverageCrowdRequest {
+    int32 specialServiceId = 2;
+    int32 totalNumber = 3;
+    string beneficiaryType = 4;
+    int32 beneficiaryAge = 5;
+}
+message ListCoverageCrowdRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+message GetCoverageCrowdRequest {
+    int32 coverageCrowdId = 1;
+}
+
+message UpdateCoverageCrowdRequest {
+    int32 coverageCrowdId = 1;
+    int32 specialServiceId = 2;
+    int32 totalNumber = 3;
+    string beneficiaryType = 4;
+    int32 beneficiaryAge = 5;
+}
+
+message DeleteCoverageCrowdRequest {
+    int32 coverageCrowdId = 1;
+}
+service CoverageCrowdService {
+    rpc AddCoverageCrowd (AddCoverageCrowdRequest) returns (CoverageCrowd) {
+    }
+    rpc ListCoverageCrowd (ListCoverageCrowdRequest) returns (CoverageCrowds) {
+    }
+    rpc GetCoverageCrowd (GetCoverageCrowdRequest) returns (CoverageCrowd) {
+    }
+    rpc UpdateCoverageCrowd (UpdateCoverageCrowdRequest) returns (CoverageCrowd) {
+    }
+    rpc DeleteCoverageCrowd (DeleteCoverageCrowdRequest) returns (CoverageCrowd) {
+
+    }
+}

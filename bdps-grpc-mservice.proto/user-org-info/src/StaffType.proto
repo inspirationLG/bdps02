@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+// Doc: https://developers.google.com/protocol-buffers/docs/proto3
+
+package com.bdps.staff_type;
+
+option java_package = "com.bdps.staff_type";
+option java_outer_classname = "StaffTypeProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+message StaffType{
+    int32 staffTypeId = 1;
+    int32 type = 2;
+    string name = 3;
+}
+message AddStaffTypeRequest{
+    int32 type = 2;
+    string name = 3;
+}
+
+message UpdateStaffTypeRequest {
+    int32 staffTypeId = 1;
+    int32 type = 2;
+    string name = 3;
+}
+message StaffTypes {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated StaffType nodes = 4;
+}
+message GetStaffTypeRequest{
+    int32 staffTypeId = 1;
+}
+
+message ListStaffTypeRequest{
+    int32 page = 1 ;
+    int32 limit = 2;
+}
+
+message DeleteStaffTypeRequest {
+    int32 staffTypeId = 1;
+}
+
+service StaffTypeService{
+    rpc AddStaffType(AddStaffTypeRequest) returns(StaffType){}
+    rpc GetStaffType(GetStaffTypeRequest) returns(StaffType){}
+    rpc ListStaffType(ListStaffTypeRequest) returns(StaffTypes){}
+    rpc UpdateStaffType(UpdateStaffTypeRequest) returns (StaffType) {}
+    rpc DeleteStaffType (DeleteStaffTypeRequest) returns (StaffType) {}
+}

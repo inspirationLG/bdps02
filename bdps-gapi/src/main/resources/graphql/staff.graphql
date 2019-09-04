@@ -1,0 +1,204 @@
+#input参数，type返回值
+#人员
+type Staff{
+    #人员编号
+    staffId: ID!
+    #身份证号
+    idCard: String
+    #人员类型编号
+    staffType: StaffType
+    #组织编号
+    organization: Organization
+    #区域编号
+    region: Region
+    #上一级人员编号
+    parentStaff: Staff
+    #关系名称
+    relationshipName: String
+    #级别
+    level: Int
+    #姓名
+    name: String
+    #角色
+    role: String
+    #联系方式1
+    tel1: String
+    #联系方式2
+    tel2: String
+    #邮箱
+    email: String
+    #现居住地
+    address: String
+    #登陆账号
+    loginAccount: String
+    #密码
+    password: String
+    #图片
+    img: String
+    #注册时间
+    joinTime: DateTime
+    #性别
+    sex: Boolean
+    #年龄
+    age: Int
+    #夫妻关联
+    coupleName: String
+    #VIP到期时间
+    vipExpireTime: DateTime
+    #民族
+    nation: String
+    #政治面貌
+    politicsStatus: String
+    #文化程度
+    educationLevel: String
+    #医疗方式
+    medicalMethod: String
+    #身高
+    height: Float
+    #体重
+    weight: Float
+    #备注
+    remark: String
+    #户籍地址
+    permanentResidenceAddress: String
+    #婚姻状况
+    maritalStatus: String
+    #居住状况
+    residenceStatus: String
+    #经济来源
+    financialResource: String
+    #兴趣爱好
+    hobby: String
+    #身体状况
+    bodyStatus: String
+    #已接受专项总次数
+    receivedTotal: Int
+    #已完成的服务总次数
+    specialServiceDoneTotal: Int
+
+}
+
+
+type Staffs {
+    count: Int
+    page: Int
+    limit: Int
+    nodes: [Staff]
+}
+
+#增加人员
+input AddStaffRequest {
+    idCard: String!
+    staffTypeId: ID
+    organizationId: ID
+    regionId: ID
+    parentStaffId: ID
+    relationshipName: String
+    level: Int
+    name: String
+    role: String
+    tel1: String
+    tel2: String
+    email: String
+    address: String
+    loginAccount: String
+    password: String
+    img: String
+    joinTime: DateTime
+    sex: Boolean
+    age: Int
+    coupleName: String
+    vipExpireTime: DateTime
+    nation: String
+    politicsStatus: String
+    educationLevel: String
+    medicalMethod: String
+    height: Float
+    weight: Float
+    remark: String
+    permanentResidenceAddress: String
+    maritalStatus: String
+    residenceStatus: String
+    financialResource: String
+    hobby: String
+    bodyStatus: String
+    receivedTotal: Int
+    specialServiceDoneTotal: Int
+}
+
+
+#人员列表
+input ListStaffRequest {
+    page: Int
+    limit: Int
+}
+
+
+#删除人员
+input DeleteStaffRequest {
+    #人员编号
+    staffId: ID!
+}
+
+#修改人员
+input UpdateStaffRequest {
+    staffId: ID!
+    idCard: String!
+    staffTypeId: ID
+    organizationId: ID
+    regionId: ID
+    parentStaffId: ID
+    relationshipName: String
+    level: Int
+    name: String
+    role: String
+    tel1: String
+    tel2: String
+    email: String
+    address: String
+    loginAccount: String
+    password: String
+    img: String
+    joinTime: DateTime
+    sex: Boolean
+    age: Int
+    coupleName: String
+    vipExpireTime: DateTime
+    nation: String
+    politicsStatus: String
+    educationLevel: String
+    medicalMethod: String
+    height: Float
+    weight: Float
+    remark: String
+    permanentResidenceAddress: String
+    maritalStatus: String
+    residenceStatus: String
+    financialResource: String
+    hobby: String
+    bodyStatus: String
+    receivedTotal: Int
+    specialServiceDoneTotal: Int
+}
+
+#查询人员
+input GetStaffRequest {
+    #人员编号
+    staffId: ID!
+
+}
+
+extend type Query {
+    getStaff(request: GetStaffRequest): Staff
+    listStaff(request: ListStaffRequest): Staffs
+}
+
+
+extend type Mutation {
+    #增加人员
+    addStaff(request: AddStaffRequest): Staff
+    updateStaff(request: UpdateStaffRequest): Staff
+    deleteStaff(request: DeleteStaffRequest): Staff
+}
+
+

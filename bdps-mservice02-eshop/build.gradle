@@ -1,0 +1,91 @@
+buildscript {
+    ext {
+        grpcVersion = "1.20.0"
+        protobufVersion = "3.7.1"
+        lombokVersion = "1.16.20"
+        protosVersion = "0.1.38-SNAPSHOT"
+        grpcStarterVersion = "2.4.0.RELEASE"
+        springBootVersion =  "2.1.6.RELEASE"
+        protobufConverterVersion = "1.1.5"
+
+        reflectasmVersion = "1.11.9"
+    }
+    repositories {
+        repositories {
+            mavenLocal()
+            maven {
+                credentials {
+                    username 'KwPAxj'
+                    password 'KKnP3maIK3'
+                }
+                url 'https://repo.rdc.aliyun.com/repository/73792-release-PXkyIy/'
+            }
+            maven {
+                credentials {
+                    username 'KwPAxj'
+                    password 'KKnP3maIK3'
+                }
+                url 'https://repo.rdc.aliyun.com/repository/73792-snapshot-z4fvGZ/'
+            }
+            maven { url 'https://jitpack.io' }
+            mavenCentral()
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+dependencies {
+    compile "com.esotericsoftware:reflectasm:${reflectasmVersion}"
+    // use grpc server only
+    // https://github.com/yidongnan/grpc-spring-boot-starter#usage
+    compile "net.devh:grpc-server-spring-boot-starter:${grpcStarterVersion}"
+    compile('org.springframework.security:spring-security-config')
+    compile "org.postgresql:postgresql"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+
+    compile("com.google.protobuf:protobuf-java-util:${protobufVersion}")
+    compile "com.bdps.protos:eshop:${protosVersion}"
+
+    compile ("com.github.BAData:protobuf-converter:${protobufConverterVersion}"){
+        exclude(group: "com.google.protobuf", module: "protobuf-java")
+    }
+
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+
+    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
+    testCompile "junit:junit:4.12"
+    testCompile "io.grpc:grpc-testing:${grpcVersion}"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+repositories {
+    mavenLocal()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven {
+        credentials {
+            username 'KwPAxj'
+            password 'KKnP3maIK3'
+        }
+        url 'https://repo.rdc.aliyun.com/repository/73792-release-PXkyIy/'
+    }
+    maven {
+        credentials {
+            username 'KwPAxj'
+            password 'KKnP3maIK3'
+        }
+        url 'https://repo.rdc.aliyun.com/repository/73792-snapshot-z4fvGZ/'
+    }
+    maven { url 'https://jitpack.io' }
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:$springBootVersion") }
+}

@@ -1,0 +1,55 @@
+#设备
+type Equipment{
+    equipmentId: ID!
+    staff : Staff
+    type : String
+    imei: String
+    name: String
+}
+
+type Equipments{
+    count: Int
+    page: Int
+    limit: Int
+    nodes: [Equipment]
+}
+
+input UpdateEquipmentRequest{
+    equipmentId: ID!
+    staff : Int
+    type : String
+    imei: String
+    name: String
+}
+
+input AddEquipmentRequest{
+    staffId: Int
+    type : String
+    imei: String
+    name: String
+}
+
+input DeleteEquipmentRequest {
+    equipmentId : ID!
+}
+
+input GetEquipmentRequest{
+    equipmentId : ID!
+}
+
+input ListEquipmentRequest{
+    page : Int
+    limit : Int
+}
+
+extend type Query {
+    getEquipment(request: GetEquipmentRequest): Equipment
+    listEquipment(request: ListEquipmentRequest): Equipments
+}
+
+
+extend type Mutation {
+    addEquipment(request: AddEquipmentRequest): Equipment
+    updateEquipment(request: UpdateEquipmentRequest): Equipment
+    deleteEquipment(request: DeleteEquipmentRequest): Equipment
+}

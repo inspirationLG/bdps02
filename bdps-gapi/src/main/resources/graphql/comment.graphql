@@ -1,0 +1,58 @@
+# 评论
+type Comment {
+    commentId : ID!
+    #外键，OrderDetail类型
+    orderDetailId : Int
+    star: Int
+    createdAt: DateTime
+    content: String
+}
+
+type Comments {
+    count: Int
+    page: Int
+    limit: Int
+    nodes: [Comment]
+}
+
+input AddCommentRequest{
+    orderDetailId : Int
+    star: Int
+    createdAt: DateTime
+    content: String
+}
+
+input UpdateCommentRequest{
+    commentId : ID!
+    orderDetailId : Int
+    star: Int
+    createdAt: DateTime
+    content: String
+}
+
+input DeleteCommentRequest{
+    commentId: ID!
+}
+
+input ListCommentRequest{
+    page: Int!
+    limit: Int!
+}
+
+input GetCommentRequest {
+    commentId: ID!
+}
+
+extend type Query {
+    getComment(request: GetCommentRequest) : Comment
+    listComments(request: ListCommentRequest) :Comments
+}
+
+extend type Mutation {
+    addComment(request: AddCommentRequest): Comment
+    updateComment(request: UpdateCommentRequest): Comment
+    deleteComment(reuest: DeleteCommentRequest): Comment
+}
+
+
+

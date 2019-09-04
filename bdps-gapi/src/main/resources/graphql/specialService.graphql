@@ -1,0 +1,65 @@
+type SpecialService{
+    specialServiceId: ID!
+    organization: Organization
+    name: String
+    time: String
+    specialServiceCreator:String
+    coverageRate: Float
+    remainTime:String
+    state:String
+    address:String
+}
+type SpecialServices{
+    #总数
+    count:Int
+    #第几页
+    page:Int
+    #查询数量
+    limit:Int
+    #结果
+    nodes:[SpecialService]
+}
+
+input AddSpecialServiceRequest{
+    organizationId: Int
+    name: String
+    time: String
+    specialServiceCreator:String
+    coverageRate: Float
+    remainTime:String
+    state:String
+    address:String
+}
+
+input UpdateSpecialServiceRequest{
+    specialServiceId: ID!
+    organizationId: Int
+    name: String
+    time: String
+    specialServiceCreator:String
+    coverageRate: Float
+    remainTime:String
+    state:String
+    address:String
+}
+input ListSpecialServiceRequest{
+    page: Int!
+    limit: Int!
+}
+input GetSpecialServiceRequest{
+    specialServiceId: ID!
+}
+input DeleteSpecialServiceRequest{
+    specialServiceId: ID!
+}
+extend type Mutation{
+    addSpecialService(request: AddSpecialServiceRequest!): SpecialService
+    updateSpecialService(request: UpdateSpecialServiceRequest!): SpecialService
+    deleteSpecialService(request: DeleteSpecialServiceRequest): SpecialService
+}
+
+
+extend type Query{
+    listSpecialService(request: ListSpecialServiceRequest!): SpecialServices
+    getSpecialService(request: GetSpecialServiceRequest!): SpecialService
+}

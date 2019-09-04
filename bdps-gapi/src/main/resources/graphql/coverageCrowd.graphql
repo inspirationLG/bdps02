@@ -1,0 +1,69 @@
+#覆盖人群
+type CoverageCrowd{
+    #覆盖人群Id
+    coverageCrowdId: ID!
+    #专项服务（这里先用Id表示）
+    specialServiceId: ID
+    #总量
+    totalNumber: Int
+    #受益人类别
+    beneficiaryType: String
+    #受益人年龄
+    beneficiaryAge: Int
+}
+type CoverageCrowds{
+    #总数
+    count:Int
+    #第几页
+    page:Int
+    #查询数量
+    limit:Int
+    #结果
+    nodes:[CoverageCrowd]
+}
+
+#添加覆盖人群时，输入的参数
+input AddCoverageCrowdRequest{
+    #专项服务Id
+    specialServiceId: ID
+    #总量
+    totalNumber: Int
+    #受益人类别
+    beneficiaryType: String
+    #受益人年龄
+    beneficiaryAge: Int
+}
+#更新区域
+input UpdateCoverageCrowdRequest{
+    #覆盖人群Id
+    coverageCrowdId: ID!
+    #专项服务（这里先用Id表示）
+    specialServiceId: ID
+    #总量
+    totalNumber: Int
+    #受益人类别
+    beneficiaryType: String
+    #受益人年龄
+    beneficiaryAge: Int
+}
+input ListCoverageCrowdRequest{
+    page: Int!
+    limit: Int!
+}
+input GetCoverageCrowdRequest{
+    coverageCrowdId: ID!
+}
+input DeleteCoverageCrowdRequest{
+    coverageCrowdId: ID!
+}
+extend type Mutation{
+    addCoverageCrowd(request: AddCoverageCrowdRequest!): CoverageCrowd
+    updateCoverageCrowd(request: UpdateCoverageCrowdRequest!): CoverageCrowd
+    deleteCoverageCrowd(request: DeleteCoverageCrowdRequest): CoverageCrowd
+}
+
+
+extend  type Query{
+    listCoverageCrowd(request: ListCoverageCrowdRequest!): CoverageCrowds
+    getCoverageCrowd(request: GetCoverageCrowdRequest!): CoverageCrowd
+}

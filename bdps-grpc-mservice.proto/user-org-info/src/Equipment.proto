@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package com.bdps.equipment;
+
+option java_package = "com.bdps.equipment";
+option java_outer_classname = "EquipmentProto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+message Equipment {
+    int32 equipmentId = 1;
+    int32 staffId = 2;
+    string type = 3;
+    string imei = 4;
+    string name =5;
+}
+
+message Equipments{
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated Equipment nodes = 4;
+}
+
+message AddEquipmentRequest {
+    int32 staffId = 2;
+    string type = 3;
+    string imei = 4;
+    string name =5;
+}
+
+message UpdateEquipmentRequest {
+    int32 equipmentId = 1;
+    int32 staffId = 2;
+    string type = 3;
+    string imei = 4;
+    string name =5;
+}
+
+message ListEquipmentRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+message DeleteEquipmentRequest {
+    int32 equipmentId = 1;
+}
+
+message GetEquipmentRequest {
+    int32 equipmentId = 1;
+}
+
+service EquipmentService {
+    rpc AddEquipment (AddEquipmentRequest) returns (Equipment){};
+    rpc UpdateEquipment (UpdateEquipmentRequest) returns (Equipment){};
+    rpc ListEquipment (ListEquipmentRequest) returns(Equipments){};
+    rpc GetEquipment (GetEquipmentRequest) returns (Equipment){};
+    rpc DeleteEquipment (DeleteEquipmentRequest) returns(Equipment){};
+}

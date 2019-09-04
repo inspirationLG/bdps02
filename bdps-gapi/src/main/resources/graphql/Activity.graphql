@@ -1,0 +1,75 @@
+#人员类型
+type Activity{
+    activityId : ID!
+    organizationId : Int
+    activityCreator :String
+    activityCreateTime :String
+    theme : String
+    staff : String
+    site : String
+    content : String
+    state : String
+    credit : Int
+    remark : String
+}
+
+# 更新人员类型参参数
+input UpdateActivityRequest{
+    activityId : ID!
+    organizationId : Int
+    activityCreator :String
+    activityCreateTime :String
+    theme : String
+    staff : String
+    site : String
+    content : String
+    state : String
+    credit : Int
+    remark : String
+}
+# 获取人员类型参数
+input GetActivityRequest{
+    activityId: ID!
+}
+
+input AddActivityRequest{
+    organizationId : Int
+    activityCreator :String
+    activityCreateTime :String
+    theme : String
+    staff : String
+    site : String
+    content : String
+    state : String
+    credit : Int
+    remark : String
+}
+
+input ListActivityRequest{
+    page : Int
+    limit : Int
+}
+
+type Activities{
+    # 总数
+    count: Int
+    # 当前页
+    page: Int
+    # 条数
+    limit: Int
+    # 结点
+    nodes: [Activity]
+}
+
+extend type Mutation {
+
+    addActivity(request: AddActivityRequest!): Activity!
+
+    updateActivity(request: UpdateActivityRequest): Activity!
+}
+
+extend type Query {
+
+    getActivity(request: GetActivityRequest): Activity
+    listActivity(request: ListActivityRequest) :Activities
+}

@@ -1,0 +1,54 @@
+type SpecialServiceFund{
+    specialServiceFundId: ID!
+    coveragecrowd: CoverageCrowd
+    staff: Staff
+    amount:Float
+    balance:Float
+
+}
+type SpecialServiceFunds{
+    #总数
+    count:Int
+    #第几页
+    page:Int
+    #查询数量
+    limit:Int
+    #结果
+    nodes:[SpecialServiceFund]
+}
+
+input AddSpecialServiceFundRequest{
+    coverageCrowdId: Int
+    staffId: Int
+    amount:Float
+    balance:Float
+}
+
+input UpdateSpecialServiceFundRequest{
+    specialServiceFundId: ID!
+    coverageCrowdId: Int
+    staffId: Int
+    amount:Float
+    balance:Float
+}
+input ListSpecialServiceFundRequest{
+    page: Int!
+    limit: Int!
+}
+input GetSpecialServiceFundRequest{
+    specialServiceFundId: ID!
+}
+input DeleteSpecialServiceFundRequest{
+    specialServiceFundId: ID!
+}
+extend type Mutation{
+    addSpecialServiceFund(request: AddSpecialServiceFundRequest!): SpecialServiceFund
+    updateSpecialServiceFund(request: UpdateSpecialServiceFundRequest!): SpecialServiceFund
+    deleteSpecialServiceFund(request: DeleteSpecialServiceFundRequest): SpecialServiceFund
+}
+
+
+extend type Query{
+    listSpecialServiceFund(request: ListSpecialServiceFundRequest!): SpecialServiceFunds
+    getSpecialServiceFund(request: GetSpecialServiceFundRequest!): SpecialServiceFund
+}

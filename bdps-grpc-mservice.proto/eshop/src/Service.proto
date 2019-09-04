@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package com.bdps.service;
+
+option java_package = "com.bdps.service";
+option java_outer_classname = "ServiceProto";
+import "google/protobuf/empty.proto";
+
+message Service {
+  int32 serviceId = 1;
+  int32 serviceTypeId = 2;
+  int32 type = 3;
+  string name = 4;
+  string content = 5;
+  string unit = 6;
+  double unitPrice = 7;
+}
+
+message Services {
+  int32 page = 1;
+  int32 limit = 2;
+  int32 count = 3;
+  repeated Service nodes = 4;
+}
+
+message AddServiceRequest {
+  int32 serviceTypeId = 2;
+  int32 type = 3;
+  string name = 4;
+  string content = 5;
+  string unit = 6;
+  double unitPrice = 7;
+}
+
+message UpdateServiceRequest {
+  int32 serviceId = 1;
+  int32 serviceTypeId = 2;
+  int32 type = 3;
+  string name = 4;
+  string content = 5;
+  string unit = 6;
+  double unitPrice = 7;
+}
+
+message DeleteServiceRequest {
+  int32 serviceId = 1;
+}
+
+message GetServiceRequest {
+  int32 serviceId = 1;
+}
+
+message ListServiceRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+service ServiceService {
+  rpc AddService (AddServiceRequest) returns (Service) {}
+  rpc UpdateService (UpdateServiceRequest) returns (Service) {}
+  rpc DeleteService (DeleteServiceRequest) returns (Service) {}
+  rpc GetService (GetServiceRequest) returns (Service){}
+  rpc ListService (ListServiceRequest) returns (Services) {}
+}

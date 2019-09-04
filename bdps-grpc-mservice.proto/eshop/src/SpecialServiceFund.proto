@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+// Doc: https://developers.google.com/protocol-buffers/docs/proto3
+
+package com.bdps.special_service_fund;
+
+option java_package = "com.bdps.special_service_fund";
+option java_outer_classname = "SpecialServiceFundProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+//option objc_class_prefix = "SAMPLE";
+
+message SpecialServiceFund {
+    int32 specialServiceFundId = 1;
+    int32 coverageCrowdId = 2;
+    int32 staffId = 3;
+    float amount = 4;
+    float balance = 5;
+}
+
+message SpecialServiceFunds {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated SpecialServiceFund nodes = 4;
+}
+
+message AddSpecialServiceFundRequest {
+    int32 coverageCrowdId = 2;
+    int32 staffId = 3;
+    float amount = 4;
+    float balance = 5;
+}
+
+message ListSpecialServiceFundRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+message GetSpecialServiceFundRequest {
+    int32 specialServiceFundId = 1;
+}
+
+message UpdateSpecialServiceFundRequest {
+    int32 specialServiceFundId = 1;
+    int32 coverageCrowdId = 2;
+    int32 staffId = 3;
+    float amount = 4;
+    float balance = 5;
+}
+
+message DeleteSpecialServiceFundRequest {
+    int32 specialServiceFundId = 1;
+}
+
+service SpecialServiceFundService {
+    rpc AddSpecialServiceFund (AddSpecialServiceFundRequest) returns (SpecialServiceFund) {
+    }
+    rpc ListSpecialServiceFund (ListSpecialServiceFundRequest) returns (SpecialServiceFunds) {
+    }
+    rpc GetSpecialServiceFund (GetSpecialServiceFundRequest) returns (SpecialServiceFund) {
+    }
+    rpc UpdateSpecialServiceFund (UpdateSpecialServiceFundRequest) returns (SpecialServiceFund) {
+    }
+    rpc DeleteSpecialServiceFund (DeleteSpecialServiceFundRequest) returns (SpecialServiceFund) {
+
+    }
+}

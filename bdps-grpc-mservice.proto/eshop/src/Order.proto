@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+// Doc: https://developers.google.com/protocol-buffers/docs/proto3
+
+package com.bdps.order;
+
+option java_package = "com.bdps.order";
+option java_outer_classname = "OrderProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+import "google/protobuf/empty.proto";
+
+message Order {
+    int32 orderId = 1;
+    int32 staffId = 2;
+    int32 organizationId = 3;
+    int32 specialServiceItemId = 4;
+    string orderCreateTime = 5;
+    int32 amount = 6;
+}
+
+message Orders {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated Order nodes = 4;
+}
+
+message AddOrderRequest {
+    int32 staffId = 2;
+    int32 organizationId = 3;
+    int32 specialServiceItemId = 4;
+    string orderCreateTime = 5;
+    int32 amount = 6;
+}
+
+message UpdateOrderRequest {
+    int32 orderId = 1;
+    int32 staffId = 2;
+    int32 organizationId = 3;
+    int32 specialServiceItemId = 4;
+    string orderCreateTime = 5;
+    int32 amount = 6;
+}
+
+message DeleteOrderRequest {
+    int32 orderId = 1;
+}
+
+message GetOrderRequest {
+    int32 orderId = 1;
+}
+
+message ListOrderRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+service OrderService {
+    rpc AddOrder (AddOrderRequest) returns (Order) {}
+    rpc UpdateOrder (UpdateOrderRequest) returns (Order) {}
+    rpc DeleteOrder (DeleteOrderRequest ) returns (Order) {}
+    rpc GetOrder (GetOrderRequest ) returns (Order){}
+    rpc ListOrder (ListOrderRequest) returns (Orders) {}
+}

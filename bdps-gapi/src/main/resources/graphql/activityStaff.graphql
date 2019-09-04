@@ -1,0 +1,48 @@
+type ActivityStaff{
+    activityStaffId: ID!
+    staff: Staff
+    activityId: Int
+
+}
+type ActivityStaffs{
+    #总数
+    count:Int
+    #第几页
+    page:Int
+    #查询数量
+    limit:Int
+    #结果
+    nodes:[ActivityStaff]
+}
+
+input AddActivityStaffRequest{
+    staffId: ID
+    activityId: Int
+}
+
+input UpdateActivityStaffRequest{
+    activityStaffId: ID!
+    staffId: ID
+    activityId: Int
+}
+input ListActivityStaffRequest{
+    page: Int!
+    limit: Int!
+}
+input GetActivityStaffRequest{
+    activityStaffId: ID!
+}
+input DeleteActivityStaffRequest{
+    activityStaffId: ID!
+}
+extend type Mutation{
+    addActivityStaff(request: AddActivityStaffRequest!): ActivityStaff
+    updateActivityStaff(request: UpdateActivityStaffRequest!): ActivityStaff
+    deleteActivityStaff(request: DeleteActivityStaffRequest): ActivityStaff
+}
+
+
+extend  type Query{
+    listActivityStaff(request: ListActivityStaffRequest!): ActivityStaffs
+    getActivityStaff(request: GetActivityStaffRequest!): ActivityStaff
+}

@@ -1,0 +1,200 @@
+buildscript {
+    ext {
+        grpcVersion = "1.20.0"
+        protocVersion = "3.7.1"
+        lombokVersion = "1.16.20"
+        protobufGradlePluginVersion = "0.8.9"
+        pgvVersion = "0.2.0"
+    }
+    repositories {
+        mavenLocal()
+        maven {
+            credentials {
+                username 'KwPAxj'
+                password 'KKnP3maIK3'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/73792-release-PXkyIy/'
+        }
+        maven {
+            credentials {
+                username 'KwPAxj'
+                password 'KKnP3maIK3'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/73792-snapshot-z4fvGZ/'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.google.protobuf:protobuf-gradle-plugin:${protobufGradlePluginVersion}"
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+
+        maven {
+            credentials {
+                username 'KwPAxj'
+                password 'KKnP3maIK3'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/73792-release-PXkyIy/'
+        }
+        maven {
+            credentials {
+                username 'KwPAxj'
+                password 'KKnP3maIK3'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/73792-snapshot-z4fvGZ/'
+        }
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+    }
+}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.google.protobuf'
+    group = PROJECT_GROUP
+
+    protobuf {
+        // Configure the protoc executable
+        protoc {
+            artifact = "com.google.protobuf:protoc:${protocVersion}"
+        }
+        plugins {
+            grpc {
+                artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+            }
+            javapgv {
+                artifact = "io.envoyproxy.protoc-gen-validate:protoc-gen-validate:${pgvVersion}"
+            }
+        }
+        generateProtoTasks {
+            // all() returns the collection of all protoc tasks
+            all()*.plugins {
+                javapgv {
+                    option "lang=java"
+                }
+                grpc {}
+            }
+        }
+    }
+    dependencies {
+        compile "com.google.protobuf:protobuf-java:${protocVersion}"
+        compile "io.grpc:grpc-stub:${grpcVersion}"
+        compile "io.grpc:grpc-protobuf:${grpcVersion}"
+        compile "io.envoyproxy.protoc-gen-validate:pgv-java-stub:${pgvVersion}"
+        compile "io.envoyproxy.protoc-gen-validate:pgv-java-grpc:${pgvVersion}"
+        protobuf files("./src")
+    }
+
+    idea {
+        module {
+            sourceDirs += file("${protobuf.generatedFilesBaseDir}/main/java")
+            sourceDirs += file("${protobuf.generatedFilesBaseDir}/main/javapgv")
+            sourceDirs += file("${protobuf.generatedFilesBaseDir}/main/grpc")
+            sourceDirs += file("build/resources/main")
+        }
+    }
+    jar {
+        exclude(
+                "/**/google/**",
+                "**/*.proto"
+        )
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives jar
+        archives sourcesJar
+        archives javadocJar
+    }
+
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+        options.addStringOption('charSet', 'UTF-8')
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        options.warnings = false
+    }
+
+    tasks.withType(Test) {
+        reports.junitXml.enabled = true
+        reports.html.enabled = false
+    }
+    if (!it.name.startsWith('demo')) {
+        publishing {
+            repositories {
+                if (project.version.endsWith('-SNAPSHOT')) {
+                    maven {
+                        credentials {
+                            username 'KwPAxj'
+                            password 'KKnP3maIK3'
+                        }
+                        url 'https://repo.rdc.aliyun.com/repository/73792-snapshot-z4fvGZ/'
+                    }
+                }else {
+                    maven {
+                        credentials {
+                            username 'KwPAxj'
+                            password 'KKnP3maIK3'
+                        }
+                        url 'https://repo.rdc.aliyun.com/repository/73792-release-PXkyIy/'
+                    }
+                }
+
+            }
+            publications {
+                mainProjectPublication(MavenPublication) {
+                    version version
+                    from components.java
+
+                    artifact sourcesJar {
+                        classifier "sources"
+                    }
+                    artifact javadocJar {
+                        classifier "javadoc"
+                    }
+
+                    pom.withXml {
+                        // Fix dependency scoping.
+                        asNode().dependencies.'*'.findAll() {
+                            it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep ->
+                                dep.name == it.artifactId.text()
+                            }
+                        }.each() {
+                            it.scope*.value = 'compile'
+                        }
+                        asNode().children().last() + {
+                            resolveStrategy = Closure.DELEGATE_FIRST
+                            name PROJECT_NAME
+                            description PROJECT_DESC
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

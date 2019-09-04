@@ -1,0 +1,111 @@
+#组织
+type Organization {
+    #组织编号
+    organizationId: ID!
+    #区域编号
+    region: Region
+    #上一级组织名称
+    parentOrganization: Organization
+    #组织名称
+    name: String
+    #管理员名称
+    manager: String
+    #管理员电话
+    managerTel: String
+    #运营范围
+    operationArea: String
+    #运营方式
+    operationMethod: String
+    #详细地址
+    address: String
+    #门牌号
+    streetNo: String
+    #标识
+    type: Int
+}
+
+type Organizations {
+    count: Int
+    Page: Int
+    limit: Int
+    nodes: [Organization]
+}
+
+#增加组织
+input AddOrganizationRequest{
+    #区域编号
+    regionId: ID
+    #上一级组织名称
+    parentOrganizationId: ID
+    #组织名称
+    name: String
+    #管理员名称
+    manager: String
+    #管理员电话
+    managerTel: String
+    #运营范围
+    operationArea: String
+    #运营方式
+    operationMethod: String
+    #详细地址
+    address: String
+    #门牌号
+    streetNo: String
+    #标识
+    type: Int
+}
+
+input UpdateOrganizationRequest {
+    #组织编号
+    organizationId: ID!
+    #区域编号
+    region: Int
+    #上一级组织名称
+    parentOrganizationId: ID
+    #组织名称
+    name: String
+    #管理员名称
+    manager: String
+    #管理员电话
+    managerTel: String
+    #运营范围
+    operationArea: String
+    #运营方式
+    operationMethod: String
+    #详细地址
+    address: String
+    #门牌号
+    streetNo: String
+    #标识
+    type: Int
+}
+
+input ListOrganizationRequest{
+    page: Int!
+    limit: Int!
+}
+
+input GetOrganizationRequest {
+    organizationId: ID!
+}
+
+input DeleteOrganizationRequest {
+    organizationId: ID!
+}
+
+extend type Query {
+    listOrganization(request: ListOrganizationRequest!): Organizations
+
+    getOrganization(request:GetOrganizationRequest!):Organization
+
+}
+
+extend type Mutation {
+    #增加组织
+    addOrganization(request: AddOrganizationRequest!): Organization
+    #更新组织
+    updateOrganization(request: UpdateOrganizationRequest!): Organization
+    # 删除组织
+    deleteOrganization(request: DeleteOrganizationRequest!): Organization
+}
+

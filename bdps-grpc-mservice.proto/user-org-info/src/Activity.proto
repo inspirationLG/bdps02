@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+// Doc: https://developers.google.com/protocol-buffers/docs/proto3
+
+package com.bdps.activity_staff;
+
+option java_package = "com.bdps.activity";
+option java_outer_classname = "ActivityProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+//option objc_class_prefix = "SAMPLE";
+
+message Activity {
+    int32 activityId = 1;
+    int32 organizationId = 2;
+    string activityCreator = 3;
+    string activityCreateTime = 4;
+    string theme = 5;
+    string staff = 6;
+    string site = 7;
+    string content = 8;
+    string state = 9;
+    int32 credit = 10;
+    string remark = 11;
+}
+
+message Activities {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated Activity nodes = 4;
+}
+
+message AddActivityRequest {
+    int32 organizationId = 2;
+    string activityCreator = 3;
+    string activityCreateTime = 4;
+    string theme = 5;
+    string staff = 6;
+    string site = 7;
+    string content = 8;
+    string state = 9;
+    int32 credit = 10;
+    string remark = 11;
+}
+
+message ListActivityRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+message GetActivityRequest {
+    int32 activityId = 1;
+}
+
+message UpdateActivityRequest {
+    int32 activityId = 1;
+    int32 organizationId = 2;
+    string activityCreator = 3;
+    string activityCreateTime = 4;
+    string theme = 5;
+    string staff = 6;
+    string site = 7;
+    string content = 8;
+    string state = 9;
+    int32 credit = 10;
+    string remark = 11;
+}
+
+message DeleteActivityRequest {
+    int32 activityId = 1;
+}
+
+service ActivityService {
+    rpc AddActivity (AddActivityRequest) returns (Activity) {
+    }
+    rpc ListActivity (ListActivityRequest) returns (Activities) {
+    }
+    rpc GetActivity (GetActivityRequest) returns (Activity) {
+    }
+    rpc UpdateActivity (UpdateActivityRequest) returns (Activity) {
+    }
+    rpc DeleteActivity (DeleteActivityRequest) returns (Activity) {
+
+    }
+}

@@ -1,0 +1,57 @@
+#覆盖人群
+type CoverageCrowdOfItem{
+    #覆盖人群项目ID
+    coverageCrowdOfItemId: ID!
+    #专项服务明细
+    specialServiceDetailId: Int
+    #覆盖人群
+    coverageCrowd: CoverageCrowd
+}
+type CoverageCrowdOfItems{
+    #总数
+    count:Int
+    #第几页
+    page:Int
+    #查询数量
+    limit:Int
+    #结果
+    nodes:[CoverageCrowdOfItem]
+}
+
+#添加覆盖人群时，输入的参数
+input AddCoverageCrowdOfItemRequest{
+    #专项服务明细
+    specialServiceDetailId: Int
+    #覆盖人群
+    coverageCrowdId: Int
+}
+#更新区域
+input UpdateCoverageCrowdOfItemRequest{
+    #覆盖人群项目ID
+    coverageCrowdOfItemId: ID!
+    #专项服务明细
+    specialServiceDetailId: Int
+    #覆盖人群
+    coverageCrowdId: Int
+}
+input ListCoverageCrowdOfItemRequest{
+    page: Int!
+    limit: Int!
+}
+input GetCoverageCrowdOfItemRequest{
+    coverageCrowdOfItemId: ID!
+}
+input DeleteCoverageCrowdOfItemRequest{
+    coverageCrowdOfItemId: Int!
+}
+extend type Mutation{
+    addCoverageCrowdOfItem(request: AddCoverageCrowdOfItemRequest!): CoverageCrowdOfItem
+    updateCoverageCrowdOfItem(request: UpdateCoverageCrowdOfItemRequest!): CoverageCrowdOfItem
+    deleteCoverageCrowdOfItem(request: DeleteCoverageCrowdOfItemRequest): CoverageCrowdOfItem
+}
+
+
+extend  type Query{
+    listCoverageCrowdOfItem(request: ListCoverageCrowdOfItemRequest!): CoverageCrowdOfItems
+    getCoverageCrowdOfItem(request: GetCoverageCrowdOfItemRequest!): CoverageCrowdOfItem
+}

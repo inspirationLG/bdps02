@@ -1,0 +1,160 @@
+syntax = "proto3";
+
+package com.bdps.staff;
+
+option java_package = "com.bdps.staff";
+option java_outer_classname = "StaffProto";
+// option java_multiple_files = true; 这个会将类分开，避免跟model重名可以不分开，如果太大可以考虑分开
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+message Staff {
+    int32 staffId = 1;
+    string idCard = 2;
+    int32 staffTypeId = 3;
+    int32 organizationId = 4;
+    int32 regionId = 5;
+    int32 parentStaffId = 6;
+    string relationshipName = 7;
+    int32 level = 8;
+    string name = 9;
+    string role = 10;
+    string tel1 = 11;
+    string tel2 = 12;
+    string email = 13;
+    string address = 14;
+    string loginAccount = 15;
+    string password = 16;
+    string img = 17;
+    google.protobuf.Timestamp joinTime = 18;
+    bool sex = 19;
+    int32 age = 20;
+    string coupleName = 21;
+    google.protobuf.Timestamp vipExpireTime = 22;
+    string nation = 23;
+    string politicsStatus = 24;
+    string educationLevel = 25;
+    string medicalMethod = 26;
+    double height = 27;
+    double weight = 28;
+    string remark = 29;
+    string permanentResidenceAddress = 30;
+    string maritalStatus = 31;
+    string residenceStatus = 32;
+    string financialResource = 33;
+    string hobby = 34;
+    string bodyStatus = 35;
+    int32 receivedTotal = 36;
+    int32 specialServiceDoneTotal = 37;
+}
+
+
+message Staffs {
+    int32 page = 1;
+    int32 limit = 2;
+    int32 count = 3;
+    repeated Staff nodes = 4;
+}
+
+
+message AddStaffRequest {
+    string idCard = 2;
+    int32 staffTypeId = 3;
+    int32 organizationId = 4;
+    int32 regionId = 5;
+    int32 parentStaffId = 6;
+    string relationshipName = 7;
+    int32 level = 8;
+    string name = 9;
+    string role = 10;
+    string tel1 = 11;
+    string tel2 = 12;
+    string email = 13;
+    string address = 14;
+    string loginAccount = 15;
+    string password = 16;
+    string img = 17;
+    google.protobuf.Timestamp joinTime = 18;
+    bool sex = 19;
+    int32 age = 20;
+    string coupleName = 21;
+    google.protobuf.Timestamp vipExpireTime = 22;
+    string nation = 23;
+    string politicsStatus = 24;
+    string educationLevel = 25;
+    string medicalMethod = 26;
+    double height = 27;
+    double weight = 28;
+    string remark = 29;
+    string permanentResidenceAddress = 30;
+    string maritalStatus = 31;
+    string residenceStatus = 32;
+    string financialResource = 33;
+    string hobby = 34;
+    string bodyStatus = 35;
+    int32 receivedTotal = 36;
+    int32 specialServiceDoneTotal = 37;
+}
+
+message UpdateStaffRequest {
+    int32 staffId = 1;
+    string idCard = 2;
+    int32 staffTypeId = 3;
+    int32 organizationId = 4;
+    int32 regionId = 5;
+    int32 parentStaffId = 6;
+    string relationshipName = 7;
+    int32 level = 8;
+    string name = 9;
+    string role = 10;
+    string tel1 = 11;
+    string tel2 = 12;
+    string email = 13;
+    string address = 14;
+    string loginAccount = 15;
+    string password = 16;
+    string img = 17;
+    google.protobuf.Timestamp joinTime = 18;
+    bool sex = 19;
+    int32 age = 20;
+    string coupleName = 21;
+    google.protobuf.Timestamp vipExpireTime = 22;
+    string nation = 23;
+    string politicsStatus = 24;
+    string educationLevel = 25;
+    string medicalMethod = 26;
+    double height = 27;
+    double weight = 28;
+    string remark = 29;
+    string permanentResidenceAddress = 30;
+    string maritalStatus = 31;
+    string residenceStatus = 32;
+    string financialResource = 33;
+    string hobby = 34;
+    string bodyStatus = 35;
+    int32 receivedTotal = 36;
+    int32 specialServiceDoneTotal = 37;
+}
+
+message DeleteStaffRequest {
+    int32 staffId = 1;
+    string idCard = 2;
+}
+
+message ListStaffRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+message GetStaffRequest {
+    int32 staffId = 1;
+}
+
+
+service StaffService {
+    rpc AddStaff (AddStaffRequest) returns (Staff){};
+    rpc UpdateStaff (UpdateStaffRequest) returns (Staff){};
+    rpc ListStaff (ListStaffRequest) returns(Staffs){};
+    rpc GetStaff (GetStaffRequest) returns (Staff){};
+    rpc DeleteStaff (DeleteStaffRequest) returns(Staff){};
+}
